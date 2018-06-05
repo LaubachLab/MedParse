@@ -44,12 +44,12 @@ The following codes correspond to the following events in this example:
 Lick = 1   (.001)
 
 PumpA <br>
-ON = 11 (.011)        
-OFF = 21 (.021)  
+ON = 11 (.011)
+OFF = 21 (.021)
 
-PumpB <br>            
+PumpB
 ON = 12 (.012)        
-OFF = 22 (.022)  
+OFF = 22 (.022)
 
 Low concentration = 50  (0.050)
 High concentration = 51 (0.051)          
