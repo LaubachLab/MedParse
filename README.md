@@ -35,3 +35,22 @@ s.s.X, <br>
     s1, <br>
         #Z^OnPumpA:   Set A(Y) = BTIME-U + (^OnPumpA)/1000; Add Y; --->sx <br>
         #Z^OffPumpA:  Set A(Y) = BTIME-U + (^OffPumpA)/1000; Add Y; --->sx <br>
+
+
+### Example File (2015-09-25_ML03)
+
+The following codes correspond to the following events in this example:
+
+Lick = 1   (.001)
+
+PumpA <br>
+ON = 11 (.011)        
+OFF = 21 (.021)  
+
+PumpB <br>            
+ON = 12 (.012)        
+OFF = 22 (.022)  
+
+Low concentration = 50  (0.050)
+High concentration = 51 (0.051)          
+Shift = 52              (0.052)    
