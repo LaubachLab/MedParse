@@ -1,0 +1,169 @@
+MEDPC STANDARDS
+
+Authors: Marcelo Caetano, Nate Smith, Kyra Swanson
+
+-------------------------------------------------------------------------------------
+INPUTS AND OUTPUTS
+-------------------------------------------------------------------------------------
+
+\INPUTS
+^LICK = 1			\1 (.001)
+^LEFT = 2			\2 (.002) \Left Port
+^CENTER = 3		\3 (.003) \Center Port
+^RIGHT = 4		\4 (.004) \Right Port
+
+\OUTPUTS			ON             OFF
+^PumpA = 1		\21 (.021)	41 (.041)		
+^PumpB = 2		\22 (.022)	42 (.042)		
+^Clicker = 3		\22 (.023)	42 (.043)		 
+
+Unless stated otherwise,
+^SPLIGHT = 9     	\29 (.029)    	50 (.049)    \Reward Light
+^TONE1 = 11		\31 (.031)	51 (.051)		
+^TONE2 = 12		\32 (.032)	52 (.052)		
+
+
+
+\Z PULSE
+^OnPumpA = 1
+^OnPumpB = 2
+
+
+^Reward = 7
+^NoReward = 8
+^OnHLight = 9
+^OffHLight = 19
+^OnSPLight = 10
+^OffSPLight = 20
+^OnTone1 = 11
+^OffTone1 = 21
+
+
+
+\CONSTANTS
+^ON = 20
+^OFF = 40
+^SessionLength = 60
+^StateEndSession = 32
+
+
+
+-------------------------------------------------------------------------------------
+DISKVARS
+-------------------------------------------------------------------------------------
+
+DIM A=9999, L=9999
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\A - Array for time coded events
+\B - Marker
+\C - Pump Activations
+\D - Time in minutes
+\F - LEFT ENTRIES
+\G - RIGHT ENTRIES
+\H - LEFT EXITS
+\K - Lick Array index
+\L - Lick Array
+\M - Correct Trials
+\N - Incorrect Trials
+\P - Current Side (0=LEFT 1=RIGHT)
+\Q - Current consequtive trials
+\R - Random time variable
+\S - Switches
+\T - Trials
+\U - Session start time
+\X - Counter
+\Y - Index, counts number of time-stamped events
+
+\ Save all variables to disk except Z (temporary variable)
+DISKVARS = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\\**********************************  MAIN LOOP *************************************
+s.s.1,
+	s1,
+
+
+\\************************************ TIMER ****************************************
+s.s.2,
+	s1,
+		#Start: Set D=0; --->s2
+	s2,
+		1': Add D; --->sx
+
+\\********************************* CLICKER WITH LIGHT ******************************
+\clicks twice, flashes until lick
+s.s.10,
+    	s1,
+		#z^Reward: ON^CLICKER; ON^SPLIGHT; ---> s2
+	s2,
+		0.1": OFF^CLICKER; OFF^SPLIGHT; ---> s3
+	s3,
+		0.1": ON^CLICKER; ON^SPLIGHT; ---> s4
+	s4,
+		0.1": OFF^CLICKER; OFF^SPLIGHT; ---> s5
+	s5,
+		#R^LICK: ---> s7
+		0.1": ON^SPLIGHT; ---> s6
+	s6,
+		#R^LICK: ---> s7
+        	0.1":  OFF^SPLIGHT; ---> s5
+	s7,
+		0.1": OFF^SPLIGHT; ---> s1
+
+\\*********************************** CLICKER ***************************************
+\clicks twice
+s.s.10,
+    	s1,
+		#z^Reward: ON^CLICKER; ---> s2
+	s2,
+		0.1": OFF^CLICKER; ---> s3
+	s3,
+		0.1": ON^CLICKER; ---> s4
+	s4,
+		0.1": OFF^CLICKER;  ---> s1
+
+
+
+-------------------------------------------------------------------------------------
+SAVE AND DISPLAY DATA
+-------------------------------------------------------------------------------------
+
+\\***************************** SAVE AND DISPLAY DATA *******************************
+s.s.20, \Display Data
+	s1,
+		#K1 ! 1":	Show 1, Min, D; ---> sx
+
+s.s.21, \Record Licks
+	s1,
+        	#Start: ---> s2
+	s2,
+		#R^Lick: 	Set A(Y) = BTIME-U + ^Lick/^STORE; Add Y; ---> sx
+
+s.s.22, \Record Pumps
+	s1,
+		#Z^OnPumpA:	Set A(Y) = BTIME-U + (^PUMPA+^ON)/1000; Add Y; --->sx
+		#Z^OnPumpB:	Set A(Y) = BTIME-U + (^PUMPB+^ON)/1000; Add Y; --->sx
+
+s.s.23, \Record House Light
+	s1,
+		#Z^OnLight:	Set A(Y) = BTIME-U + (^LIGHT+^ON)/1000; Add Y; ---> sx
+		#Z^OffLight:	Set A(Y) = BTIME-U + (^LIGHT+^OFF)/1000; Add Y; ---> sx
+
+s.s.24 \Record Tone and Clicker
+	s1,
+		#Z^OnClicker:	Set A(Y) = BTIME-U + (^CLICKER+^ON)/1000; Add Y; ---> sx
+		#Z^OffClicker:	Set A(Y) = BTIME-U + (^CLICKER+^OFF)/1000; Add Y; ---> sx
+		#Z^OnTone:	Set A(Y) = BTIME-U + (^TONE+^ON)/1000; Add Y; ---> sx
+		#Z^OffTone:	Set A(Y) = BTIME-U + (^TONE+^OFF)/1000; Add Y; ---> sx
+		
+
+
+\\******************************** SESSION TIMER ************************************
+s.s.32,
+	s1,
+		#Start: Set U = BTIME; ---> s2
+	s2,
+		^SessionLength' ! #Z^StateEndSession ! #K99: #K1; ---> s3
+	s3,
+		.01": --->STOPABORTFLUSH
+
