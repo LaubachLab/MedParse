@@ -1,10 +1,16 @@
 # MedParse
 
-Reads MedPC data into python and matlab
+Functions to read MedPC data into python and matlab <br>
+Files: <br>
+mpc_to_tec.m  -> MATLAB Original file provided by Russell Church and Paulo Guilhardi, May 2000<br>
+med_to_tec.m  -> MATLAB Updated version by Marcelo Cetano, April 2010<br>
+med_to_tec.py -> PYTHON Translated to python by Kyra Swanson, January 2015<br>
+2015-09-25_ML03 -> Example MedPC data file containing raw time-event codes <br>
+MEDPC Template  -> Standard MedPC event codes and saving conventions used in our lab<br>
+
 
 ### Requirements for MedPC file
 
-See <a href = "https://www.med-associates.com/med-nr/storing-events-v0-1/"> Storing All Events (Procedure) </a>
 
 Set a timing variable (eg U) to the internal time to set a baseline 
 and set another as an index placeholder (eg Y). A separate index holder is needed for each data array
