@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-MED_to_TEC.py
+% File:             med_to_tec.py
+% File type:        Function
+% Created on:       Jan 5, 2015
+% Created by:       Kyra Swanson
+% Last revised on:  Jun 5, 2018
+% Last revised by:  Kyra Swanson
 
 Converts MedPC file into list of [time,event] codes
 
-Requires the following DISKVARS:
-DIM A=9900, B=3
+Based on med_to_tec.m
+Created by Marcelo S. Caetano
 
 Requires Time-Event pairs to be saved as:
 TIME.EVENT
@@ -17,11 +22,6 @@ Events are converted to integers.
 The final product for this event is 
 [536,1]
 
-
-Created Jan 5 15:23 2015
-Last Edited Feb 8 11:47 2016 
-
-Author: Kyra Swanson
 """
 import numpy as np
 import re
