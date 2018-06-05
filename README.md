@@ -47,7 +47,7 @@ PumpA <br>
 ON = 11 (.011)
 OFF = 21 (.021)
 
-PumpB
+PumpB <br>
 ON = 12 (.012)        
 OFF = 22 (.022)
 
