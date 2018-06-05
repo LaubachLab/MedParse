@@ -51,6 +51,6 @@ PumpB <br>
 ON = 12 (.012) <br>
 OFF = 22 (.022) <br>
 
-Low concentration = 50  (0.050)
-High concentration = 51 (0.051)          
-Shift = 52              (0.052)    
+Low concentration = 50  (0.050) <br>
+High concentration = 51 (0.051) <br>     
+Shift = 52              (0.052) <br>
