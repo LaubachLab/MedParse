@@ -12,12 +12,12 @@ and set another as an index placeholder (eg Y). A separate index holder is neede
 #Start: Set U = BTIME, Y = 0, K = 0; 
 
 
-<b> Set variables to arrays to hold times: <b>
+<b> Set variables to arrays to hold times: </b>
 
 DIM A=9999, B=3, L=9999
 
 
-<b> Save variables as they occur into the arrays: <b>
+<b> Save variables as they occur into the arrays: </b>
 
 This example saves lick times into array L 
 
